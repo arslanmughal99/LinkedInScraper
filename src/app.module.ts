@@ -6,7 +6,10 @@ import { AppController } from './app.controller';
 import { ScraperModule } from './scraper/scraper.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), ScraperModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true, cache: false }),
+    ScraperModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

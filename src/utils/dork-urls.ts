@@ -10,37 +10,38 @@ export default (payload: ScrapingDto): string[] => {
         .replace(/,/gm, '|')
     : '"@gmail.com" | "@hotmail.com" | "@live.com" | "@outlook.com" | "@yahoo.com" | "@mail.com" | "@icloud.com" | "@microsoft.com" | "@aol.com" | "@fastmail.com" | "@zoho.com"';
 
-  let url = `https://www.google.com/search?q=site:www.linkedin.com "${country}" intext:"${jobTitle}" -inurl:"dir/" intext:(${mailDomains})`;
+  let url0 = `https://www.google.com/search?q=site:www.linkedin.com "${country}" intext:"${jobTitle}" -inurl:"dir/" intext:(${mailDomains})`;
 
-  if (location) url += ` "${location}"`;
+  let url1 = `https://www.google.com/search?q=site:www.linkedin.com/pub "${country}" intext:"${jobTitle}" -inurl:"dir/" intext:(${mailDomains})`;
 
-  if (include)
-    url += ` intext:(${include
+  const url2 = `https://www.google.com/search?q=site:www.linkedin.com intext:"${country}" intext:"${jobTitle}" intext:(${mailDomains})`;
+
+  if (location) {
+    const loc = ` "${location}"`;
+
+    url0 += loc;
+    url1 += loc;
+  }
+
+  if (include) {
+    const inc = ` intext:(${include
       .map((each) => `"${each}"`)
       .join()
       .replace(/,/gm, '|')})`;
 
-  if (exclude)
-    url += ` -intext:(${exclude
+    url0 += inc;
+    url1 += inc;
+  }
+
+  if (exclude) {
+    const exld = ` -intext:(${exclude
       .map((each) => `"${each}")`)
       .join()
       .replace(/,/gm, '|')}`;
 
-  // const url1 = `https://www.google.com/search?q=site:www.linkedin.com "${country}" "${jobTitle}" "${location}" "${
-  //   include ?? ''
-  // }" intext:(${mailDomains}) -inurl:"dir/" -intext:"${exclude ?? ''}`;
+    url0 += exld;
+    url1 += exld;
+  }
 
-  // const url2 = `https://www.google.com/search?q=site:www.linkedin.com/pub "${jobTitle}" "${country.toLowerCase()}" "${
-  //   include ?? ''
-  // }" intext:(${mailDomains}) -inurl:"dir/" -intext:"${exclude ?? ''}"`;
-
-  // const url3 = `https://www.google.com/search?q=site:"www.linkedin.com" "${country.toLowerCase()}" "${jobTitle}" "${
-  //   location ?? ''
-  // }" "${include ?? ''}" intext:(${mailDomains}) -inurl:"dir/" -intext:"${
-  //   exclude ?? ''
-  // }"`;
-
-  // const url4 = `https://www.google.com/search?q=site:www.linkedin.com intext:${country.toLowerCase()} intext:${jobTitle} intext:(${mailDomains})`;
-
-  return [url];
+  return [url0, url1, url2];
 };

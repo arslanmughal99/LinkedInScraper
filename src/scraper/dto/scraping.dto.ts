@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
@@ -33,6 +34,13 @@ export class ScrapingDto {
   @IsArray({ message: 'Exclude keywords need to be an array.' })
   @IsString({ message: 'Invalid exclude keywords', each: true })
   exclude?: string[];
+
+  @IsOptional()
+  @IsNumber(
+    { maxDecimalPlaces: 0, allowInfinity: false, allowNaN: false },
+    { message: 'Invalid limit provided.' },
+  )
+  limit?: number;
 
   @IsOptional()
   @IsArray({ message: 'Email domains need to be an array.' })
