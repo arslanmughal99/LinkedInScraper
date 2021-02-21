@@ -1,4 +1,3 @@
-import * as fs from 'fs/promises';
 import { uniq } from 'lodash';
 import { parse } from 'fast-html-parser';
 import { HttpService, Injectable, Logger } from '@nestjs/common';
@@ -12,7 +11,6 @@ export class ScraperService {
   private readonly logger: Logger;
   constructor(private readonly httpService: HttpService) {
     this.logger = new Logger('ScraperService');
-    this.mock();
   }
 
   /**
@@ -117,12 +115,3 @@ export class ScraperService {
     await this.scrape(mockData);
   }
 }
-
-// async writeToFile(gotMails: string[]) {
-//   const mails = gotMails.join('\n');
-//   await fs.writeFile(
-//     'C:\\Users\\arsla\\Documents\\LinkedInScraperService\\emails',
-//     mails,
-//     { flag: 'a' },
-//   );
-// }
