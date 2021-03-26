@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import { uniq } from 'lodash';
 import { parse } from 'fast-html-parser';
 import { HttpService, Injectable, Logger } from '@nestjs/common';
@@ -11,6 +12,7 @@ export class ScraperService {
   private readonly logger: Logger;
   constructor(private readonly httpService: HttpService) {
     this.logger = new Logger('ScraperService');
+    // this.mock();
   }
 
   /**
@@ -43,17 +45,18 @@ export class ScraperService {
 
         const gotMails = this.parseEmails(body);
 
-        if (!gotMails) {
-          this.logger.verbose(`No mails found changing dork url now.`);
-          page = 0;
-          break;
-        }
+        // if (!gotMails) {
+        //   this.logger.verbose(`No mails found changing dork url now.`);
+        //   page = 0;
+        //   break;
+        // }
 
-        this.logger.verbose(`Got ${gotMails.length} emails.`);
+        // this.logger.verbose(`Got ${gotMails.length} emails.`);
 
-        emails = uniq(
-          emails.concat(gotMails.map((mail) => mail.toLowerCase())),
-        );
+        if (gotMails)
+          emails = uniq(
+            emails.concat(gotMails.map((mail) => mail.toLowerCase())),
+          );
 
         this.logger.verbose(`Total emails ${emails.length}`);
 
@@ -98,6 +101,13 @@ export class ScraperService {
       .querySelector('#main')
       .structuredText.match(EMAIL_REGIX);
 
+    if (emails)
+      fs.writeFileSync(
+        'C:\\Users\\arsla\\Documents\\LinkedInScraperService\\emails',
+        emails.join('\n') + '\n',
+        { flag: 'a' },
+      );
+
     return emails;
   }
 
@@ -107,9 +117,9 @@ export class ScraperService {
   async mock() {
     const mockData: ScrapingDto = {
       id: 'd3596ee2-ba16-4556-9d6f-6438a79c33e4',
-      country: 'United States',
-      jobTitle: 'IT Manager',
-      include: ['Wordpress', 'Software'],
+      country: 'Germany',
+      jobTitle: 'Inhaber',
+      include: ['Kosmetik'],
     };
 
     await this.scrape(mockData);

@@ -8,7 +8,7 @@ import { ScraperService } from './scraper.service';
 export class ScraperController {
   constructor(private readonly scraperService: ScraperService) {}
 
-  @MessagePattern('linkedin.scraper')
+  @MessagePattern('scrape')
   async scrape(@Payload() payload: ScrapingDto) {
     const res = await this.scraperService.scrape(payload);
     return res;
