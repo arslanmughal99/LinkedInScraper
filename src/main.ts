@@ -4,17 +4,18 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 import { AppModule } from './app.module';
 
-const logger = new Logger('Bootstrap');
+const logger = new Logger('EmailScraperService');
 
 async function bootstrap() {
+  const urls = process.env.RMQ_URLS.split(',').map((url) => url.trim());
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.RMQ,
       options: {
-        queue: 'scraper',
-        replyQueue: 'scraper_result',
-        urls: ['amqp://admin:admin@192.168.1.5:5672 '],
+        urls,
+        queue: process.env.RMQ_QUEUE_NAME,
+        replyQueue: process.env.RMQ_QUEUE_RESULT_NAME,
         queueOptions: {
           durable: true,
         },

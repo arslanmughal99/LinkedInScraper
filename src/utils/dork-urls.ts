@@ -10,7 +10,7 @@ export default (payload: ScrapingDto): string[] => {
         .replace(/,/gm, '|')
     : '"@gmail.com" | "@hotmail.com" | "@live.com" | "@outlook.com" | "@yahoo.com" | "@mail.com" | "@icloud.com" | "@microsoft.com" | "@aol.com" | "@fastmail.com" | "@zoho.com"';
 
-  let url0 = `https://www.google.com/search?q="Inhaberin" "Rechtsanwalt" AND "@gmail.com"`;
+  let url0 = `https://www.google.com/search?q="Founder" "Roofing" AND "@gmail.com"`;
 
   // let url0 = `https://www.google.com/search?q="${country}" intext:"${jobTitle}" -inurl:"dir/" intext:(${mailDomains})`;
 

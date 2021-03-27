@@ -1,8 +1,8 @@
 {
-  "name": "linked-in-scraper",
+  "name": "email-scraper-service",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Email Scraping Email Service.",
+  "author": "Graviton <gravitonapps99@gmail.com>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

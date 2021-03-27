@@ -12,7 +12,7 @@ export class ScraperService {
   private readonly logger: Logger;
   constructor(private readonly httpService: HttpService) {
     this.logger = new Logger('ScraperService');
-    // this.mock();
+    this.mock();
   }
 
   /**
@@ -103,7 +103,7 @@ export class ScraperService {
 
     if (emails)
       fs.writeFileSync(
-        'C:\\Users\\arsla\\Documents\\LinkedInScraperService\\emails',
+        'C:\\Users\\arsla\\Documents\\EmailScraperService\\emails',
         emails.join('\n') + '\n',
         { flag: 'a' },
       );
