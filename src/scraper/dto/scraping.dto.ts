@@ -12,28 +12,28 @@ export class ScrapingDto {
   @IsUUID('4', { message: 'Task Id must b valid UUID4.' })
   id: string;
 
-  @IsString({ message: 'Invalid Job title.' })
   @IsNotEmpty({ message: 'Job title is required.' })
-  jobTitle: string;
+  @IsString({ message: 'Invalid Job title.', each: true })
+  jobTitle: string[];
 
-  @IsNotEmpty({ message: 'Country is required.' })
-  @IsString({ message: 'Invalid country provided.' })
-  country: string;
+  // @IsNotEmpty({ message: 'Country is required.' })
+  // @IsString({ message: 'Invalid country provided.' })
+  // country: string;
 
-  @IsOptional()
-  @IsNotEmpty({ message: 'Country is required.' })
-  @IsString({ message: 'Invalid country provided.' })
-  location?: string;
+  // @IsOptional()
+  // @IsNotEmpty({ message: 'Country is required.' })
+  // @IsString({ message: 'Invalid country provided.' })
+  // location?: string;
 
-  @IsOptional()
-  @IsArray({ message: 'Include keywords need to be an array.' })
-  @IsString({ message: 'Invalid include keywords', each: true })
-  include?: string[];
+  // @IsOptional()
+  // @IsArray({ message: 'Include keywords need to be an array.' })
+  // @IsString({ message: 'Invalid include keywords', each: true })
+  // include?: string[];
 
-  @IsOptional()
-  @IsArray({ message: 'Exclude keywords need to be an array.' })
-  @IsString({ message: 'Invalid exclude keywords', each: true })
-  exclude?: string[];
+  // @IsOptional()
+  // @IsArray({ message: 'Exclude keywords need to be an array.' })
+  // @IsString({ message: 'Invalid exclude keywords', each: true })
+  // exclude?: string[];
 
   @IsOptional()
   @IsNumber(

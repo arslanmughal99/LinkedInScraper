@@ -45,11 +45,13 @@ export class ScraperService {
 
         const gotMails = this.parseEmails(body);
 
-        // if (!gotMails) {
-        //   this.logger.verbose(`No mails found changing dork url now.`);
-        //   page = 0;
-        //   break;
-        // }
+        if (!gotMails && body.includes('- did not match any documents.')) {
+          this.logger.verbose(
+            `No more pages found. Switching Google Dork Query.`,
+          );
+          page = 0;
+          break;
+        }
 
         // this.logger.verbose(`Got ${gotMails.length} emails.`);
 
@@ -70,6 +72,7 @@ export class ScraperService {
       }
     }
 
+    this.logger.verbose(`Task ${id} completed. Got ${emails.length} emails.`);
     return { id, emails };
   }
 
@@ -116,10 +119,8 @@ export class ScraperService {
    */
   async mock() {
     const mockData: ScrapingDto = {
+      jobTitle: ['Roofing', 'Founder'],
       id: 'd3596ee2-ba16-4556-9d6f-6438a79c33e4',
-      country: 'Germany',
-      jobTitle: 'Inhaber',
-      include: ['Kosmetik'],
     };
 
     await this.scrape(mockData);
