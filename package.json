@@ -29,6 +29,7 @@
     "@types/fast-html-parser": "^1.0.1",
     "amqp-connection-manager": "^3.2.2",
     "amqplib": "^0.7.1",
+    "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "fast-html-parser": "^1.0.1",
     "kafkajs": "^1.15.0",

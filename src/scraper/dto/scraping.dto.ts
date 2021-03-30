@@ -1,10 +1,10 @@
 import {
-  IsArray,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
   IsUUID,
+  IsArray,
+  IsString,
+  IsNumber,
+  IsNotEmpty,
+  IsOptional,
 } from 'class-validator';
 
 export class ScrapingDto {
@@ -14,26 +14,7 @@ export class ScrapingDto {
 
   @IsNotEmpty({ message: 'Job title is required.' })
   @IsString({ message: 'Invalid Job title.', each: true })
-  jobTitle: string[];
-
-  // @IsNotEmpty({ message: 'Country is required.' })
-  // @IsString({ message: 'Invalid country provided.' })
-  // country: string;
-
-  // @IsOptional()
-  // @IsNotEmpty({ message: 'Country is required.' })
-  // @IsString({ message: 'Invalid country provided.' })
-  // location?: string;
-
-  // @IsOptional()
-  // @IsArray({ message: 'Include keywords need to be an array.' })
-  // @IsString({ message: 'Invalid include keywords', each: true })
-  // include?: string[];
-
-  // @IsOptional()
-  // @IsArray({ message: 'Exclude keywords need to be an array.' })
-  // @IsString({ message: 'Invalid exclude keywords', each: true })
-  // exclude?: string[];
+  jobTitles: string[];
 
   @IsOptional()
   @IsNumber(

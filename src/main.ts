@@ -1,6 +1,10 @@
-import { Logger } from '@nestjs/common';
+import {
+  Transport,
+  RmqOptions,
+  MicroserviceOptions,
+} from '@nestjs/microservices';
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
 
@@ -14,16 +18,18 @@ async function bootstrap() {
       transport: Transport.RMQ,
       options: {
         urls,
+        persistent: true,
         queue: process.env.RMQ_QUEUE_NAME,
-        replyQueue: process.env.RMQ_QUEUE_RESULT_NAME,
         queueOptions: {
           durable: true,
         },
         noAck: false,
       },
       logger: ['error', 'warn', 'verbose', 'log'],
-    },
+    } as RmqOptions,
   );
+
+  app.useGlobalPipes(new ValidationPipe());
 
   app.listen(() => {
     logger.log('Scraping service started.');

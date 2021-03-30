@@ -1,5 +1,10 @@
+import {
+  Ctx,
+  Payload,
+  RmqContext,
+  MessagePattern,
+} from '@nestjs/microservices';
 import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
 
 import { ScrapingDto } from './dto/scraping.dto';
 import { ScraperService } from './scraper.service';
@@ -9,8 +14,8 @@ export class ScraperController {
   constructor(private readonly scraperService: ScraperService) {}
 
   @MessagePattern('scrape')
-  async scrape(@Payload() payload: ScrapingDto) {
-    const res = await this.scraperService.scrape(payload);
+  async scrape(@Payload() payload: ScrapingDto, @Ctx() context: RmqContext) {
+    const res = await this.scraperService.scrape(payload, context);
     return res;
   }
 }

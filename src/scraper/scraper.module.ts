@@ -2,25 +2,29 @@ import { HttpModule, Module } from '@nestjs/common';
 
 import { ScraperService } from './scraper.service';
 import { ScraperController } from './scraper.controller';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ResultsQueueService } from './results-queue.service';
 
 @Module({
   imports: [
     HttpModule,
-    // HttpModule.registerAsync({
-    //   useFactory: () => ({
-    //     proxy: {
-    //       host: process.env.PROXY_HOST,
-    //       protocol: process.env.PROXY_TYPE,
-    //       port: parseInt(process.env.PROXY_PORT),
-    //       auth: {
-    //         username: process.env.PROXY_USERNAME,
-    //         password: process.env.PROXY_PASSWORD,
-    //       },
-    //     },
-    //   }),
-    // }),
+    HttpModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configs: ConfigService) => ({
+        proxy: {
+          host: configs.get('PROXY_HOST'),
+          protocol: configs.get('PROXY_TYPE'),
+          port: parseInt(configs.get('PROXY_PORT')),
+          auth: {
+            username: configs.get('PROXY_USERNAME'),
+            password: configs.get('PROXY_PASSWORD'),
+          },
+        },
+      }),
+    }),
   ],
-  providers: [ScraperService],
+  providers: [ScraperService, ResultsQueueService],
   controllers: [ScraperController],
 })
 export class ScraperModule {}
