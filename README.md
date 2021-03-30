@@ -1,2 +1,2 @@
-#LinkedInScraper
-######LinkedIn email scraping microservice based on Kafka.
+#Email Scraper
+######Email scraping microservice based on RabbitMq.
