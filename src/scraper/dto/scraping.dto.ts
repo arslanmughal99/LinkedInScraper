@@ -23,8 +23,16 @@ export class ScrapingDto {
   )
   limit?: number;
 
+  @IsString({ message: 'Invalid country name.' })
+  @IsNotEmpty({ message: 'Country is required.' })
+  country: string;
+
   @IsOptional()
   @IsArray({ message: 'Email domains need to be an array.' })
   @IsString({ message: 'Email domain(s) not valid.', each: true })
   domains?: string[];
 }
+
+// export enum Countries {
+
+// }

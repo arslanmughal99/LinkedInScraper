@@ -1,7 +1,7 @@
 import { ScrapingDto } from 'src/scraper/dto/scraping.dto';
 
 export default (payload: ScrapingDto): string[] => {
-  const { jobTitles, domains } = payload;
+  const { jobTitles, domains, country } = payload;
 
   const mailDomains = domains ?? [
     '@aol.com',
@@ -25,7 +25,8 @@ export default (payload: ScrapingDto): string[] => {
     .trim();
 
   const urls = mailDomains.map(
-    (domain) => `https://www.google.com/search?q=${jobs} AND "${domain}"`,
+    (domain) =>
+      `https://www.google.com/search?q=${jobs} AND "${domain}" AND "${country}"`,
   );
 
   return urls;

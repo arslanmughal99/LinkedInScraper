@@ -17,6 +17,7 @@ export class ScraperService {
     private readonly resultQueue: ResultsQueueService,
   ) {
     this.logger = new Logger('ScraperService');
+    // this.mock();
   }
 
   /**
@@ -126,10 +127,10 @@ export class ScraperService {
   // async mock() {
   //   const mockData: ScrapingDto = {
   //     limit: 20,
+  //     country: 'United States',
   //     jobTitles: ['Roofing', 'Founder'],
   //     id: 'd3596ee2-ba16-4556-9d6f-6438a79c33e4',
   //   };
-
   //   await this.scrape(mockData, context);
   // }
 }
