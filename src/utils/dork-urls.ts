@@ -1,21 +1,11 @@
 import { ScrapingDto } from 'src/scraper/dto/scraping.dto';
 
+import defaultDomains from './domains';
+
 export default (payload: ScrapingDto): string[] => {
   const { jobTitles, domains, country } = payload;
 
-  const mailDomains = domains ?? [
-    '@aol.com',
-    '@zoho.com',
-    '@mail.com',
-    '@live.com',
-    '@gmail.com',
-    '@yahoo.com',
-    '@icloud.com',
-    '@hotmail.com',
-    '@outlook.com',
-    '@fastmail.com',
-    '@microsoft.com',
-  ];
+  const mailDomains = domains ?? defaultDomains;
 
   const jobs = jobTitles
     .reduce((pval, cval) => {
@@ -26,8 +16,12 @@ export default (payload: ScrapingDto): string[] => {
 
   const urls = mailDomains.map(
     (domain) =>
-      `https://www.google.com/search?q=${jobs} AND "${domain}" AND "${country}"`,
+      `https://www.google.com/search?q=${jobs} AND "${domain}" AND ${country}`,
   );
+
+  // const urls = `https://www.google.com/search?q=${jobs} AND (${mailDomains
+  //   .map((e) => `"${e}"`)
+  //   .join('|')}) AND ${country}`;
 
   return urls;
 };

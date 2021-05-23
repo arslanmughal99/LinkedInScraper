@@ -25,11 +25,11 @@ async function bootstrap() {
         },
         noAck: false,
       },
-      logger: ['error', 'warn', 'verbose', 'log'],
+      logger: ['error', 'warn', 'verbose', 'log', 'debug'],
     } as RmqOptions,
   );
 
-  app.useGlobalPipes(new ValidationPipe());
+  // app.useGlobalPipes(new ValidationPipe());
 
   app.listen(() => {
     logger.log('Scraping service started.');

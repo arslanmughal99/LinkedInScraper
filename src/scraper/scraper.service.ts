@@ -1,12 +1,12 @@
 // import * as fs from 'fs';
 import { uniq } from 'lodash';
 import { parse } from 'fast-html-parser';
+import { RmqContext } from '@nestjs/microservices';
 import { HttpService, Injectable, Logger } from '@nestjs/common';
 
 import getUrls from '../utils/dork-urls';
 import { EMAIL_REGIX } from '../constants';
 import { ScrapingDto } from './dto/scraping.dto';
-import { RmqContext } from '@nestjs/microservices';
 import { ResultsQueueService } from './results-queue.service';
 
 @Injectable()
@@ -25,10 +25,12 @@ export class ScraperService {
    * @description scrape emails from linkedin with given message payload
    */
   async scrape(payload: ScrapingDto, context: RmqContext) {
+    this.logger.debug(payload);
+
     const { id } = payload;
     let { limit } = payload;
 
-    limit = limit ?? 1000;
+    limit = limit ?? 10000;
 
     let page = 0;
     let emails: string[] = [];
@@ -120,17 +122,14 @@ export class ScraperService {
 
     return emails;
   }
-
-  // /**
-  //  * @description Temporary mock function for test
-  //  */
-  // async mock() {
-  //   const mockData: ScrapingDto = {
-  //     limit: 20,
-  //     country: 'United States',
-  //     jobTitles: ['Roofing', 'Founder'],
-  //     id: 'd3596ee2-ba16-4556-9d6f-6438a79c33e4',
-  //   };
-  //   await this.scrape(mockData, context);
-  // }
 }
+
+// {
+//   "pattern": "scrape",
+//   "data": {
+//     "id": "e8238788-6387-4c80-9433-f211f3a093cb",
+//     "jobTitles": ["Worpdress"],
+//     "limit": 1000,
+//     "country": "United States"
+//   }
+// }
